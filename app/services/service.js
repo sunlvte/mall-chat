@@ -5,6 +5,7 @@
 const path = require('path');
 const _ = require('lodash');
 const userModel = require('../models/user');
+const base64id = require('base64id');
 
 module.exports = class service
 {
@@ -48,19 +49,7 @@ module.exports = class service
    * @return string
    */
   static uniqueId(prefix) {
-    const id = [];
-
-    if (prefix) {
-      id.push(prefix);
-    }
-
-    id.push(new Date().getTime());
-
-    id.push(_.uniqueId());
-
-    id.push(_.random(10000, 99999));
-
-    return id.join('');
+    return (prefix || '') + base64id.generateId();
   }
 
   /**

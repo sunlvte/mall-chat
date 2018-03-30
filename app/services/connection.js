@@ -9,6 +9,7 @@ const userModel = require('../models/user');
 const Service = require('./service');
 const _ = require('lodash');
 const users = require('./users');
+const debug = require('debug')('chat:app/services/connection');
 
 module.exports = new class extends Service
 {
@@ -48,18 +49,44 @@ module.exports = new class extends Service
    * @return void
    */
   async disconnect(socket) {
-    await connectionModel.findOneAndUpdate({
-      side_socket_id: socket.id,
-    }, {
-      is_active: false,
-      disconnect_at: Date.now(),
-    });
+    if (!await Service.isService(socket)) {
+      return await this.offlineSide(socket.id);
+    }
 
     // 如果是客服需要下线
-    if (await Service.isService(socket)) {
-      console.log(socket.id, 'offline');
-      users.disconnect(socket.id);
-    }
+    debug('service offline with socket.id: %s', socket.id);
+
+    return await this.offlineService(socket.id);
+  }
+  
+  // 用户下线
+  async offlineSide(socketId) {
+    return await connectionModel.findOneAndUpdate({
+        side_socket_id: socketId,
+        is_active: true,
+      }, {
+        is_active: false,
+        disconnect_at: Date.now(),
+      });
+  }
+
+  /**
+   * 客服下线
+   *
+   * @param string socketId
+   * @return Object
+   */
+  async offlineService(socketId) {
+    const user = await users.disconnect(socketId);
+
+    return await connectionModel.findOneAndUpdate({
+        service_id: user._id,
+        is_active: true,
+      }, {
+        is_active: false,
+        disconnect_at: Date.now(),
+        disconnect_by: 'service',
+      });
   }
 
 };

@@ -2,7 +2,7 @@
   <head>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="/chat/socket.io.js"></script>
     <style lang="less">
 ul li {
   list-style-type: none;
@@ -24,6 +24,7 @@ ul li {
     <script>
 (function() {
   const socket = io('/a', {
+    path: '/chat',
     query: {
       // id: '5abcd2e39618a1352373c0a8000',
     }
@@ -47,8 +48,8 @@ ul li {
     socket.emit('new message', data);
   });
 
-  socket.on('flow', data => {
-    data.to = data;
+  socket.on('error', (a, b, c) => {
+    console.log(a, b, c);
   });
   socket.on('destory', data => {
     console.log('destory');

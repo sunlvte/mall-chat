@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "node app/index.js",
+    "serve": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "luoage@msn.cn",
@@ -12,6 +12,8 @@
   "private": true,
   "dependencies": {
     "art-template": "^4.12.2",
+    "base64id": "^1.0.0",
+    "debug": "^3.1.0",
     "koa": "^2.5.0",
     "koa-art-template": "^1.1.1",
     "koa-router": "^7.4.0",

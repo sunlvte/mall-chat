@@ -12,6 +12,8 @@ const _ = require('lodash');
 const url = require('url');
 const querystring = require('querystring');
 const service = require('./services/service');
+const debug = require('debug')('chat:app/io');
+
 
 // 初始化房间
 // 监听connection
@@ -22,19 +24,19 @@ const generate = {
   // 初始化
   async init(io) {
     const paths = await chat.paths();
-
-    console.log('namespace:', paths);
-
-    await this.identify(io);
+    debug('namespace:', paths);
 
     paths.forEach((path) => {
-      io.of(path).on('connection', this.connection.bind(io));
+      const namespace = io.of(path);
+
+      this.identify(namespace);
+      namespace.on('connection', this.connection.bind(io));
     });
   },
 
-  // 链接权限
-  async identify(io) {
-    io.use(async (socket, next) => {
+  // 身份认证
+  identify(namespace) {
+    namespace.use(async (socket, next) => {
       const query = socket.handshake.query;
       const isValid = await users.identify(socket, query);
 
@@ -42,24 +44,34 @@ const generate = {
         return next();
       }
 
-      // @TODO
-      next(new Error('无权限 !'));
+      debug('Authentication error with query %j', query);
+      next(new Error('权限不足'));
     });
   },
 
-  // 事件
+  // connection callback
   connection(socket) {
-    console.log('connection:', socket.id);
+    debug('connection with socket.id: %s', socket.id);
 
-    Object.keys(message).forEach(msg => {
-      socket.on(msg, message[msg].bind(this, socket));
+    Object.keys(message).forEach((msg) => {
+      socket.on(msg, (...args) => {
+        message[msg].bind(this, socket, ...args)()
+          .catch((e) => {
+            console.error('errorCatched:', e);
+            socket.emit('destory');
+          });
+      });
     });
   }
 
 };
 
 module.exports.use = function(server) {
-  const io = socketIo(server);
+  const io = socketIo(server, {
+    pingInterval: 10000,
+    pingTimeout: 5000,
+    path: '/chat',
+  });
 
   // auto rewrite socketId
   io.engine.generateId = function(req) {

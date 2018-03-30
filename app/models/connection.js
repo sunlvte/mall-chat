@@ -5,7 +5,7 @@
  */
 const mongoose = require('./mongoose');
 const userModel = require('./user');
-const collection = 'collection';
+const collection = 'connection';
 
 const schema = mongoose.Schema({
   // 客服名称
@@ -33,6 +33,9 @@ const schema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  disconnect_by: {
+    type: String,
+  },
   // 咨询人最后离开时间
   disconnect_at: {
     type: Date,
@@ -58,7 +61,7 @@ module.exports = {
   },
 
   async findOneAndUpdate(...args) {
-    return await Model.findOneAndUpdate(...args);
+    return await Model.findOneAndUpdate(...args).sort({created_at: -1}).exec();
   },
 
   /**
