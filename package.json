@@ -1,0 +1,22 @@
+{
+  "name": "mall-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node app/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "luoage@msn.cn",
+  "license": "none",
+  "private": true,
+  "dependencies": {
+    "art-template": "^4.12.2",
+    "koa": "^2.5.0",
+    "koa-art-template": "^1.1.1",
+    "koa-router": "^7.4.0",
+    "lodash": "^4.17.5",
+    "mongoose": "^5.0.12",
+    "socket.io": "^2.0.4"
+  }
+}
