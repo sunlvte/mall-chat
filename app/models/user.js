@@ -1,5 +1,5 @@
 /**
- * 客服 
+ * 客服
  *
  * @author luoage@msn.cn
  */
@@ -70,6 +70,11 @@ module.exports = {
   // 设置为激活状态
   async setSocket(_id, socketId) {
     return await Model.findOneAndUpdate({_id}, {socket_id: socketId, is_active: true});
+  },
+
+  // 设置下线
+  async setOfflineBySocketId(socket_id) {
+    return await Model.findOneAndUpdate({socket_id}, {is_active: false});
   },
 
   // 获取在线客服

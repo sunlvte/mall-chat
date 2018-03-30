@@ -8,6 +8,7 @@ const connectionModel = require('../models/connection');
 const userModel = require('../models/user');
 const Service = require('./service');
 const _ = require('lodash');
+const users = require('./users');
 
 module.exports = new class extends Service
 {
@@ -41,7 +42,11 @@ module.exports = new class extends Service
     return user;
   }
 
-  // 切断链接
+  /**
+   * 切断链接
+   * @param socket
+   * @return void
+   */
   async disconnect(socket) {
     await connectionModel.findOneAndUpdate({
       side_socket_id: socket.id,
@@ -51,6 +56,10 @@ module.exports = new class extends Service
     });
 
     // 如果是客服需要下线
-  },
+    if (await Service.isService(socket)) {
+      console.log(socket.id, 'offline');
+      users.disconnect(socket.id);
+    }
+  }
 
 };

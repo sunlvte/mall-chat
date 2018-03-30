@@ -61,9 +61,12 @@ const generate = {
 module.exports.use = function(server) {
   const io = socketIo(server);
 
+  // auto rewrite socketId
   io.engine.generateId = function(req) {
     const reqUrl = url.parse(req.url);
-    const id = querystring.parse(reqUrl.query).id;
+    const query = querystring.parse(reqUrl.query);
+
+    const id = query._id || query.id;
 
     return id || service.uniqueId('_sid_');
   };

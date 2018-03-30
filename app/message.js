@@ -5,8 +5,8 @@
  */
 const users = require('./services/users');
 const connection = require('./services/connection');
-const connection = require('./services/connection');
 const message = require('./services/message');
+const service = require('./services/service');
 
 module.exports = {
 
@@ -15,10 +15,8 @@ module.exports = {
     await connection.disconnect(socket);
   },
 
-  // 客服认证
+  // 设置客服状态
   async ['service identification'](socket, data) {
-    // console.log('identification', socket.id);
-
     await users.serviceIdentify(socket, data);
   },
 
@@ -26,6 +24,12 @@ module.exports = {
   async ['identification'](socket, data) {
     // 匹配客服
     const user = await users.userIdentify(socket, data);
+
+    if (!user) {
+      socket.emit('destory');
+      console.log('all services offline');
+      return;
+    }
 
     // @TODO 认证成功后给客服增加一个消息提醒
 

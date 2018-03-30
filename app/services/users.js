@@ -50,7 +50,10 @@ module.exports = new class extends Service
 
   /**
    * 客服下线
+   *
+   * @param string socketId
    */
   async disconnect(socketId) {
+    return await userModel.setOfflineBySocketId(socketId);
   }
 };
