@@ -5,10 +5,10 @@ const dotenv = require('dotenv').config();
 const Koa = require('koa');
 const render = require('koa-art-template');
 const path = require('path');
-const app = new Koa();
 const router = require('./app/router');
 const io = require('./app/io');
 const debug = require('debug')('chat:index');
+const app = new Koa();
 
 if (process.cwd() !== __dirname) {
   throw new Error('launch server error.');

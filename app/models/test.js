@@ -1,4 +1,5 @@
 
+require('dotenv').config();
 const user = require('./user');
 
 async function t() {

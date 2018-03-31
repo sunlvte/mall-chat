@@ -1,14 +1,15 @@
 /**
  * 基础服务
+ *
  * @author luoage@msn.cn
  */
 const path = require('path');
 const _ = require('lodash');
 const userModel = require('../models/user');
 const base64id = require('base64id');
+const debug = require('debug')('chat:app/services/service');
 
-module.exports = class service
-{
+module.exports.__proto__ = {
 
   /**
    * 加载方法
@@ -19,28 +20,18 @@ module.exports = class service
    *
    * @return Promise
    */
-  static action(name) {
+  action(name) {
     const [file, func] = name.split('@');
 
     return function(...args) {
       return new Promise(resolve => {
         resolve(require(path.resolve(process.cwd(), file + '.js'))[func](...args));
       }).catch(e => {
-        console.log(e);
+        debug('action errors');
+        console.error(e);
       });
     }
-  }
-
-  /**
-   * 柯里化
-   * 使用function.bind(fn, ...)实现
-   * @deprecated
-   */
-  static curry(fn, ...args) {
-    return function(...args1) {
-      return fn(...args, ...args1);
-    };
-  }
+  },
 
   /**
    * 增加随机数
@@ -48,9 +39,9 @@ module.exports = class service
    * @param string prefix
    * @return string
    */
-  static uniqueId(prefix) {
+  uniqueId(prefix) {
     return (prefix || '') + base64id.generateId();
-  }
+  },
 
   /**
    * 判断是否为客服
@@ -59,7 +50,7 @@ module.exports = class service
    * @param Boolean force 强制数据库检查
    * @return Boolean
    */
-  static async isService(socket, force = false) {
+  async isService(socket, force = false) {
     if (!socket) {
       return false;
     }
@@ -76,6 +67,23 @@ module.exports = class service
     }
 
     return true;
-  }
+  },
+
+  /**
+   * 获取config目录配置文件
+   *
+   * @param string key
+   * @return mixed
+   */
+  config(key) {
+    const [filename] = key.split('.');
+    const config = {};
+
+    if (!config[filename]) {
+      config[filename] = require(path.resolve(process.cwd(), 'config', filename));
+    }
+
+    return _.get(config, key);
+  },
 
 };

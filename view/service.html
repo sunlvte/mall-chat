@@ -26,13 +26,12 @@ ul li {
   const socket = io('/b',{
     path: '/chat',
     query: {
-      _id: '5abcd2dc1aaeb1351be6f5ad',
+      _id: '5abf93afef0c79d5e703e72b',
       token: 'alJO2V99Bw',
     }
   });
   const idata = {};
 
-  socket.emit('service identification', idata);
 
   $('#input').on('keyup', function(e) {
     if (e.keyCode !== 13) {
@@ -43,10 +42,10 @@ ul li {
 
     idata.msg = message;
 
-    socket.emit('replay message', idata);
+    socket.emit('answer message', idata);
   });
 
-  socket.on('add side', data => {
+  socket.on('new user comes', data => {
     console.log(data.to);
     idata.to = data.to;
   });
@@ -54,7 +53,11 @@ ul li {
     console.log('destory');
     socket.destroy();
   });
-  socket.on('new message', (data) => {
+
+  socket.on('answer message', (data) => {
+    $('.ul').append('<li>'+data.msg+'</li>');
+  });
+  socket.on('ask message', (data) => {
     $('.ul').append('<li>'+data.msg+'</li>');
   });
 

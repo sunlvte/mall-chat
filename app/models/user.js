@@ -77,25 +77,8 @@ module.exports = {
     return await Model.findOneAndUpdate({socket_id}, {is_active: false});
   },
 
-  // 获取在线客服
-  async getActiveSocket(socket) {
-    const list = await Model.find({socket_id: {$nin: ['']}, is_active: true});
-
-    if (!list.length) {
-      return false;
-    }
-
-    const index = _.random(0, list.length - 1);
-    const user = list[index];
-
-    // 写入关系表
-    await connection.insert({
-      service_name: user.name,
-      service_id: user._id,
-      side_socket_id: socket.id,
-      is_active: true,
-    });
-    return user;
-  },
+  async getActiveList() {
+    return await Model.find({socket_id: {$nin: ['']}, is_active: true});
+  }
 
 };

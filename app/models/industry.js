@@ -5,18 +5,14 @@
  */
 const mongoose = require('./mongoose');
 
-const collection = 'industry';
-
 const schema = mongoose.Schema({
-  name: {
+  mobile: {
     type: String,
     requred: true
   },
-  industry_name: {
-    type: String,
-  },
   token: {
     type: String,
+    unique: true,
   },
   created_at: {
     type: Date,
@@ -24,18 +20,10 @@ const schema = mongoose.Schema({
   }
 });
 
-const Model = mongoose.model(collection, schema);
-
-const model = {
-
-  async insert(data) {
-    return await new Model(data).save();
-  },
-
-  async findAll() {
-    return await Model.find({}).exec();
-  },
-
+/**
+ * @reference http://mongoosejs.com/docs/api.html#Model
+ */
+schema.statics = {
 };
 
-module.exports = model;
+module.exports = mongoose.model('industries', schema);

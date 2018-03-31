@@ -6,16 +6,15 @@
 
 const connectionModel = require('../models/connection');
 const userModel = require('../models/user');
-const Service = require('./service');
+const service = require('./service');
 const _ = require('lodash');
 const users = require('./users');
 const debug = require('debug')('chat:app/services/connection');
 
-module.exports = new class extends Service
-{
+module.exports.__proto__ = {
 
   /**
-   * 根据咨询id获取客户id
+   * 根据咨询socket.id 获取客户id
    *
    * @TODO 无客服时消息处理
    * @param string socketId
@@ -41,7 +40,7 @@ module.exports = new class extends Service
     }
 
     return user;
-  }
+  },
 
   /**
    * 切断链接
@@ -49,7 +48,7 @@ module.exports = new class extends Service
    * @return void
    */
   async disconnect(socket) {
-    if (!await Service.isService(socket)) {
+    if (!await service.isService(socket)) {
       return await this.offlineSide(socket.id);
     }
 
@@ -57,7 +56,7 @@ module.exports = new class extends Service
     debug('service offline with socket.id: %s', socket.id);
 
     return await this.offlineService(socket.id);
-  }
+  },
   
   // 用户下线
   async offlineSide(socketId) {
@@ -67,8 +66,8 @@ module.exports = new class extends Service
       }, {
         is_active: false,
         disconnect_at: Date.now(),
-      });
-  }
+      }).sort({created_at: -1}).exec();
+  },
 
   /**
    * 客服下线
@@ -86,7 +85,7 @@ module.exports = new class extends Service
         is_active: false,
         disconnect_at: Date.now(),
         disconnect_by: 'service',
-      });
-  }
+      }).sort({created_at: -1}).exec();
+  },
 
 };

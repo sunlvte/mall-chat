@@ -6,19 +6,15 @@
 
 const socketIo = require('socket.io');
 const chat = require('./controller/io');
-const message = require('./message');
+const messageService = require('./services/message');
 const users = require('./services/users');
 const _ = require('lodash');
 const url = require('url');
 const querystring = require('querystring');
 const service = require('./services/service');
 const debug = require('debug')('chat:app/io');
+const messages = require('./message');
 
-
-// 初始化房间
-// 监听connection
-// 监听disconnection
-// 监听自定义事件
 const generate = {
 
   // 初始化
@@ -37,14 +33,11 @@ const generate = {
   // 身份认证
   identify(namespace) {
     namespace.use(async (socket, next) => {
-      const query = socket.handshake.query;
-      const isValid = await users.identify(socket, query);
-
-      if (isValid) {
+      if (await users.identify(socket)) {
         return next();
       }
 
-      debug('Authentication error with query %j', query);
+      debug('authentication error with query %j', socket.handshake.query);
       next(new Error('权限不足'));
     });
   },
@@ -53,12 +46,13 @@ const generate = {
   connection(socket) {
     debug('connection with socket.id: %s', socket.id);
 
-    Object.keys(message).forEach((msg) => {
+    Object.keys(messages).forEach((msg) => {
       socket.on(msg, (...args) => {
-        message[msg].bind(this, socket, ...args)()
+        messages[msg].bind(this, socket, ...args)()
           .catch((e) => {
-            console.error('errorCatched:', e);
             socket.emit('destory');
+            debug('messages errors, destory the socket .');
+            console.error(e);
           });
       });
     });
@@ -72,6 +66,8 @@ module.exports.use = function(server) {
     pingTimeout: 5000,
     path: '/chat',
   });
+
+  messageService.io = io;
 
   // auto rewrite socketId
   io.engine.generateId = function(req) {

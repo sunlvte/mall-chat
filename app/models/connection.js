@@ -4,8 +4,7 @@
  * @author luoage@msn.cn
  */
 const mongoose = require('./mongoose');
-const userModel = require('./user');
-const collection = 'connection';
+const _ = require('lodash');
 
 const schema = mongoose.Schema({
   // 客服名称
@@ -48,29 +47,10 @@ const schema = mongoose.Schema({
   }
 });
 
-const Model = mongoose.model(collection, schema);
-
-module.exports = {
-
-  async insert(data) {
-    return await new Model(data).save();
-  },
-
-  async findAll() {
-    return await Model.find();
-  },
-
-  async findOneAndUpdate(...args) {
-    return await Model.findOneAndUpdate(...args).sort({created_at: -1}).exec();
-  },
-
-  /**
-   * 查询单条数据
-   *
-   * @return null|Object
-   */
-  async findOne(query) {
-    return await Model.findOne(query);
-  },
-
+/**
+ * @reference http://mongoosejs.com/docs/api.html#Model
+ */
+schema.statics = {
 };
+
+module.exports = mongoose.model('connection', schema);

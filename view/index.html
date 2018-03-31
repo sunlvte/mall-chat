@@ -7,12 +7,17 @@
 ul li {
   list-style-type: none;
 }
+
+    left {
+      text-align: left;
+    }
+    right{
+      text-align: right;
+    }
     </style>
   </head>
   <body>
     <div class="container">
-       <h1 class="">Hello Koa</h1>
-
        <ul class="ul">
          <li class="left">aaaaaaaaaa</li>
        </ul>
@@ -26,15 +31,11 @@ ul li {
   const socket = io('/a', {
     path: '/chat',
     query: {
-      // id: '5abcd2e39618a1352373c0a8000',
+      token: 'alJO2V99Bw',
     }
   });
 
   const data = {};
-
-  socket.emit('identification', {
-    uid: +new Date()
-  });
 
   $('#input').on('keyup', function(e) {
     if (e.keyCode !== 13) {
@@ -45,7 +46,7 @@ ul li {
 
     data.msg = message;
 
-    socket.emit('new message', data);
+    socket.emit('ask message', data);
   });
 
   socket.on('error', (a, b, c) => {
@@ -55,8 +56,12 @@ ul li {
     console.log('destory');
     socket.destroy();
   });
-  socket.on('new message', (data) => {
-    $('.ul').append('<li>'+data.msg+'</li>');
+
+  socket.on('answer message', (data) => {
+    $('.ul').append('<li class="left">'+data.msg+'</li>');
+  });
+  socket.on('ask message', (data) => {
+    $('.ul').append('<li class="right">'+data.msg+'</li>');
   });
 
 })()
