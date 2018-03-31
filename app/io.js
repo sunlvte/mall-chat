@@ -77,7 +77,6 @@ module.exports.use = function(server) {
   io.engine.generateId = function(req) {
     const reqUrl = url.parse(req.url);
     const query = querystring.parse(reqUrl.query);
-
     const id = query._id || query.id;
 
     return id || service.uniqueId('_sid_');

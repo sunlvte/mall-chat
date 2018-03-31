@@ -1,6 +1,7 @@
 /**
  * @author luaoge@msn.cn
  */
+const dotenv = require('dotenv').config();
 const Koa = require('koa');
 const render = require('koa-art-template');
 const path = require('path');
@@ -8,6 +9,14 @@ const app = new Koa();
 const router = require('./app/router');
 const io = require('./app/io');
 const debug = require('debug')('chat:index');
+
+if (process.cwd() !== __dirname) {
+  throw new Error('launch server error.');
+}
+
+if (dotenv.error) {
+  throw dotenv.error;
+}
 
 // setting
 const server = app.listen(3000, () =>  {

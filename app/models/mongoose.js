@@ -7,7 +7,7 @@
 const mongoose = require('mongoose');
 const debug = require('debug')('chat:models/mongoose');
 
-mongoose.connect('mongodb://localhost:27017/test');
+mongoose.connect(process.env.MONGODB_CONNECTION);
 
 const db = mongoose.connection;
 
