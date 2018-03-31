@@ -12,8 +12,9 @@ const _ = require('lodash');
 const url = require('url');
 const querystring = require('querystring');
 const service = require('./services/service');
-const debug = require('debug')('chat:app/io');
 const messages = require('./message');
+const debug = service.debug(__filename);
+
 
 const generate = {
 

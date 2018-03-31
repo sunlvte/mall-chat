@@ -7,6 +7,7 @@ const connection = require('./connection');
 const _ = require('lodash');
 const service = require('./service');
 const config = service.config;
+const debug = service.debug(__filename);
 
 module.exports.__proto__ = {
 

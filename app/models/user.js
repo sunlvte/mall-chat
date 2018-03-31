@@ -7,8 +7,6 @@ const mongoose = require('./mongoose');
 const _ = require('lodash');
 const connection = require('./connection');
 
-const collection = 'users';
-
 const schema = mongoose.Schema({
   name: {
     type: String,
@@ -37,48 +35,29 @@ const schema = mongoose.Schema({
   }
 });
 
-const Model = mongoose.model(collection, schema);
-
-module.exports = {
+/**
+ * @reference http://mongoosejs.com/docs/api.html#Model
+ */
+schema.statics = {
 
   async insert(data) {
-    return await new Model(data).save();
-  },
-
-  async findAll() {
-    return await Model.find({});
-  },
-
-  /**
-   * 查询多条数据
-   *
-   * @return list
-   */
-  async find(query) {
-    return await Model.find(query);
-  },
-
-  /**
-   * 查询单条数据
-   *
-   * @return null|Object
-   */
-  async findOne(query) {
-    return await Model.findOne(query);
+    return await this.create(data);
   },
 
   // 设置为激活状态
   async setSocket(_id, socketId) {
-    return await Model.findOneAndUpdate({_id}, {socket_id: socketId, is_active: true});
+    return await this.findOneAndUpdate({_id}, {socket_id: socketId, is_active: true});
   },
 
   // 设置下线
   async setOfflineBySocketId(socket_id) {
-    return await Model.findOneAndUpdate({socket_id}, {is_active: false});
+    return await this.findOneAndUpdate({socket_id}, {is_active: false});
   },
 
   async getActiveList() {
-    return await Model.find({socket_id: {$nin: ['']}, is_active: true});
+    return await this.find({socket_id: {$nin: ['']}, is_active: true});
   }
 
 };
+
+module.exports = mongoose.model('users', schema);

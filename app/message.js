@@ -6,8 +6,8 @@
 const connection = require('./services/connection');
 const message = require('./services/message');
 const service = require('./services/service');
-const debug = require('debug')('chat:app/message');
 const config = service.config;
+const debug = service.debug(__filename);
 
 module.exports = {
 

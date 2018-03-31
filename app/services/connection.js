@@ -9,7 +9,7 @@ const userModel = require('../models/user');
 const service = require('./service');
 const _ = require('lodash');
 const users = require('./users');
-const debug = require('debug')('chat:app/services/connection');
+const debug = service.debug(__filename);
 
 module.exports.__proto__ = {
 

@@ -7,7 +7,7 @@ const path = require('path');
 const _ = require('lodash');
 const userModel = require('../models/user');
 const base64id = require('base64id');
-const debug = require('debug')('chat:app/services/service');
+const debug = require('debug');
 
 module.exports.__proto__ = {
 
@@ -23,11 +23,11 @@ module.exports.__proto__ = {
   action(name) {
     const [file, func] = name.split('@');
 
-    return function(...args) {
+    return (...args) => {
       return new Promise(resolve => {
         resolve(require(path.resolve(process.cwd(), file + '.js'))[func](...args));
       }).catch(e => {
-        debug('action errors');
+        this.debug()('action errors');
         console.error(e);
       });
     }
@@ -84,6 +84,15 @@ module.exports.__proto__ = {
     }
 
     return _.get(config, key);
+  },
+
+  /**
+   * debug
+   * @param string file
+   * @return function
+   */
+  debug(file) {
+    return debug('chat:' + path.relative(process.cwd(), file));
   },
 
 };

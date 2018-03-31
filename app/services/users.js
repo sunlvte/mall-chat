@@ -7,9 +7,9 @@ const connectionModel = require('../models/connection');
 const industryModel = require('../models/industry');
 const service = require('./service');
 const _ = require('lodash');
-const debug = require('debug')('chat:app/service/users');
 const message = require('./message');
 const config = service.config;
+const debug = service.debug(__filename);
 
 module.exports.__proto__ = {
 
