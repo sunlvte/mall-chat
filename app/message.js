@@ -25,20 +25,34 @@ module.exports = {
   /**
    * 客服回复消息
    *
+   * @param socket
+   * @param data
+   * @param function cb
+   * @return Promise
    */
-  async [config('message.answerMessage')](socket, data) {
-    await message.sendAnswerFromServiceToUser(socket, data);
+  async [config('message.answerMessage')](socket, data, cb) {
+    return await message.sendAnswerFromServiceToUser(socket, data, cb);
   },
 
   /**
    * 用户发送新消息
+   *
+   * @param socket
+   * @param data
+   * @param function cb
+   * @return Promise
    */
-  async [config('message.askMessage')](socket, data) {
-    await message.sendAskFromUserToService(socket, data);
+  async [config('message.askMessage')](socket, data, cb) {
+    return await message.sendAskFromUserToService(socket, data, cb);
   },
 
   /**
    * 获取最近聊天记录
+   *
+   * @param socket
+   * @param data
+   * @param function cb
+   * @return Promise
    */
   async[config('message.getRecentMessage')](socket, data) {
     await chat.getRecentMessage(socket, data);

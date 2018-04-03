@@ -95,4 +95,21 @@ module.exports.__proto__ = {
     return debug('chat:' + path.relative(process.cwd(), file));
   },
 
+  /**
+   * 回复
+   *
+   * @param string key code.key
+   * @param mixed data
+   *
+   * return
+   */
+  reply(key, data, cb) {
+    const result = _.extend({}, this.config(key));
+
+    result.data = data;
+    typeof cb === 'function' && cb(result);
+
+    return result;
+  },
+
 };

@@ -41,7 +41,10 @@ ul li {
 
     data.msg = message;
 
-    socket.emit('ask message', data);
+    socket.emit('user message', data, (result) => {
+      console.log(result);
+      result.code === 0 && $('.ul').append('<li class="right">'+data.msg+'</li>');
+    });
   });
 
   socket.on('error', (a, b, c) => {
@@ -54,9 +57,6 @@ ul li {
 
   socket.on('answer message', (data) => {
     $('.ul').append('<li class="left">'+data.msg+'</li>');
-  });
-  socket.on('ask message', (data) => {
-    $('.ul').append('<li class="right">'+data.msg+'</li>');
   });
 
 })()

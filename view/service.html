@@ -27,7 +27,7 @@ ul li {
     </div>
     <script>
 (function() {
-  const socket = io('/b',{
+  const socket = io('/b', {
     path: '/chat',
     query: {
       _id: '5abf93afef0c79d5e703e72b',
@@ -48,12 +48,16 @@ ul li {
 
     idata.msg = message;
 
-    socket.emit('answer message', idata);
+    socket.emit('service message', idata, (result) => {
+      console.log(result);
+      result.code === 0 && $('.ul').append('<li class="right">'+data.msg+'</li>');
+    });
   });
 
   socket.on('connect', () => {
     socket.emit('get recent message');
   });
+
   socket.on('messages', (data) => {
     console.log(data);
   });
@@ -62,15 +66,13 @@ ul li {
     console.log(data.to);
     idata.to = data.to;
   });
+
   socket.on('destory', data => {
     console.log('destory');
     socket.destroy();
   });
 
-  socket.on('answer message', (data) => {
-    $('.ul').append('<li class="right">'+data.msg+'</li>');
-  });
-  socket.on('ask message', (data) => {
+  socket.on('user message', (data) => {
     $('.ul').append('<li class="left">'+data.msg+'</li>');
   });
 

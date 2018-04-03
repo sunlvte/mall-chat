@@ -60,25 +60,24 @@ module.exports.__proto__ = {
    * @param data
    * @return 返回客服数据
    */
-  async sendAskFromUserToService(socket, data) {
-    // 发送消息给客服
+  async sendAskFromUserToService(socket, data, cb) {
     const user = await connection.getServiceSocketId(socket.id);
 
     if (!user) {
+      service.reply('code.noSerivces', data, cb);
       return;
     }
 
     // 保存信息
-    const chats = chat.insertAskMessage(socket, _.extend({}, data, {
+    const chats = await chat.insertAskMessage(socket, _.extend({}, data, {
       to: user.socket_id
     }));
 
-    if (chats) {
-      this.sendAskMessage(user.socket_id, data);
-      this.sendAskMessage(socket.id, data);
-    }
+    this.sendAskMessage(user.socket_id, data);
 
-    return service;
+    service.reply('code.success', data, cb);
+
+    return chats;
   },
 
   /**
@@ -86,19 +85,20 @@ module.exports.__proto__ = {
    *
    * @param socket
    * @param data
+   * @param function cb
    * @return void
    */
-  async sendAnswerFromServiceToUser(socket, data) {
+  async sendAnswerFromServiceToUser(socket, data, cb) {
     if (!data.to) {
-      return this.send(socket, config('message.invalidCustomerId'));
+      service.reply('code.invalidCustomerId', data, cb);
+      return;
     }
 
     const chats = chat.insertAnswerMessage(socket, data);
 
-    if (chats) {
-      this.sendAnswerMessage(socket.id, data);
-      this.sendAnswerMessage(data.to, data);
-    }
+    service.reply('code.success', data, cb);
+
+    this.sendAnswerMessage(data.to, data);
   },
 
   /**

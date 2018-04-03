@@ -7,10 +7,10 @@
 module.exports = {
 
   // 用户咨询问题
-  askMessage: 'ask message',
+  askMessage: 'user message',
 
   // 客服回答用户咨询
-  answerMessage: 'answer message',
+  answerMessage: 'service message',
 
   // 有新的用户
   newUserComes: 'new user comes',
@@ -21,10 +21,5 @@ module.exports = {
   // 最近聊天记录
   getRecentMessage: 'get recent message',
 
-  // 无效的客户id
-  invalidCustomerId: {
-    code: 1000,
-    msg: 'invalid customer id',
-  }
 
 };
