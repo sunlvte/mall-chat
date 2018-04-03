@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import (reference) '../assets/css/common/variable.less';
-  @import (reference) '../assets/css/common/public.less';
+  /*@import (reference) '../assets/css/common/variable.less';
+  @import (reference) '../assets/css/common/public.less';*/
 
 </style>

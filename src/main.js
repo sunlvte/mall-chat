@@ -2,13 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import 'babel-polyfill';
 import Vue from 'vue';
-import App from './app';
+import App from './app.vue';
 import jQuery from 'jquery';
 import router from './router/index';
 import store from './store/';
 import ElementUI from 'element-ui';
 
-import './assets/css/common/widget/iconfont/iconfont.css';
 
 window.jQuery = jQuery;
 window.$ = jQuery;

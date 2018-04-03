@@ -10,7 +10,7 @@ export default {
 </script>
 
 <style lang="less">
-  @import './assets/css/common/public.less';
+  /*@import './assets/css/common/public.less';
   @import './assets/vaq/less/base.less';
   .main {
     .relative;
@@ -20,5 +20,5 @@ export default {
     background-color: @adminContentBg;
     min-height: calc(~'100% + 50px');
     font-family:"Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
-  }
+  }*/
 </style>

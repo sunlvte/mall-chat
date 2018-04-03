@@ -11,10 +11,10 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import (reference) '../assets/css/common/public.less';
+// @import (reference) '../assets/css/common/public.less';
 
 .page-404 {
-  .center;
+  text-align: center;
   padding-top: 5em;
 }
 </style>

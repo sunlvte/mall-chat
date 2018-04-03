@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "./node_modules/.bin/webpack   --progress --config  build/webpack.config.js",
     "serve": "DEBUG=chat* node index.js",
     "test": "./node_modules/mocha/bin/mocha test/*"
   },
@@ -12,9 +13,13 @@
   "private": true,
   "dependencies": {
     "art-template": "^4.12.2",
+    "babel-polyfill": "^6.26.0",
     "base64id": "^1.0.0",
     "debug": "^3.1.0",
     "dotenv": "^5.0.1",
+    "element-theme": "2.0.1",
+    "element-ui": "2.0.11",
+    "jquery": "2.1.0",
     "koa": "^2.5.0",
     "koa-art-template": "^1.1.1",
     "koa-router": "^7.4.0",
@@ -23,10 +28,6 @@
     "mocha": "^5.0.5",
     "mongoose": "^5.0.12",
     "socket.io": "^2.0.4",
-    "babel-polyfill": "^6.26.0",
-    "element-theme": "2.0.1",
-    "element-ui": "2.0.11",
-    "jquery": "2.1.0",
     "store": "2.0.12",
     "vue": "2.5.2",
     "vue-router": "3.0.1",
@@ -40,7 +41,10 @@
     "less": "3.0.1",
     "less-loader": "4.0.6",
     "postcss-loader": "2.0.8",
+    "url-loader": "0.5.8",
     "vue-loader": "13.3.0",
-    "url-loader": "0.5.8"
+    "webpack": "^3.6.0",
+    "vue-style-loader": "3.0.1",
+    "vue-template-compiler": "2.5.2"
   }
 }
