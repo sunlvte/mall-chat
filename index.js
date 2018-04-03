@@ -33,6 +33,8 @@ app.use(async (ctx, next) => {
   debug('time using: %d ms', +new Date() - time);
 });
 
+app.use(require('koa-static')('./dist'));
+
 // 配置
 render(app, {
   root: path.join(process.cwd(), 'view'),
