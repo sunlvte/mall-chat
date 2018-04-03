@@ -18,4 +18,13 @@ module.exports = {
   // 激活的客服列表为空
   activeSerivceEmpty: 'active service empty',
 
+  // 最近聊天记录
+  getRecentMessage: 'get recent message',
+
+  // 无效的客户id
+  invalidCustomerId: {
+    code: 1000,
+    msg: 'invalid customer id',
+  }
+
 };

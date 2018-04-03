@@ -18,7 +18,7 @@ module.exports.__proto__ = {
    *
    * @TODO 无客服时消息处理
    * @param string socketId
-   * @return object
+   * @return object|null
    */
   async getServiceSocketId(sideSocketId) {
     const con = await connectionModel.findOne({
@@ -31,7 +31,7 @@ module.exports.__proto__ = {
     }
 
     const user = await userModel.findOne({
-      _id: con.service_id, 
+      _id: con.service_id,
       is_active: true,
     });
 
@@ -57,7 +57,7 @@ module.exports.__proto__ = {
 
     return await this.offlineService(socket.id);
   },
-  
+
   // 用户下线
   async offlineSide(socketId) {
     return await connectionModel.findOneAndUpdate({

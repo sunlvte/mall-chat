@@ -8,6 +8,7 @@ const industryModel = require('../models/industry');
 const service = require('./service');
 const _ = require('lodash');
 const message = require('./message');
+const chat = require('./chat');
 const config = service.config;
 const debug = service.debug(__filename);
 
@@ -22,6 +23,13 @@ module.exports.__proto__ = {
    * @return Boolean
    */
   async identify(socket) {
+    return this.identification(socket);
+  },
+
+  /**
+   * 鉴定
+   */
+  async identification(socket) {
     const where = _.pick(socket.handshake.query, ['_id', 'token']);
 
     if (_.isEmpty(where)) {
@@ -34,7 +42,7 @@ module.exports.__proto__ = {
     }
 
     // 用户
-    return this.userIdentify(socket);
+    return await this.userIdentify(socket);
   },
 
   /**
@@ -67,7 +75,7 @@ module.exports.__proto__ = {
    * @return mixed
    */
   async getActiveSocket(socket) {
-    const list = await userModel.getActiveList();
+    const list = await userModel.getActiveServiceList();
 
     if (!list.length) {
       return false;

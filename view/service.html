@@ -7,14 +7,18 @@
 ul li {
   list-style-type: none;
 }
+
+.left {
+  text-align: left;
+}
+.right{
+  text-align: right;
+}
     </style>
   </head>
   <body>
     <div class="container">
-       <h1 class="">Hello Koa</h1>
-
        <ul class="ul">
-         <li class="left">aaaaaaaaaa</li>
        </ul>
 
       <div>
@@ -28,7 +32,9 @@ ul li {
     query: {
       _id: '5abf93afef0c79d5e703e72b',
       token: 'alJO2V99Bw',
-    }
+    },
+    reconnection: true, // 重连
+    reconnectionAttempts: 10, // 尝试重连次数
   });
   const idata = {};
 
@@ -45,6 +51,13 @@ ul li {
     socket.emit('answer message', idata);
   });
 
+  socket.on('connect', () => {
+    socket.emit('get recent message');
+  });
+  socket.on('messages', (data) => {
+    console.log(data);
+  });
+
   socket.on('new user comes', data => {
     console.log(data.to);
     idata.to = data.to;
@@ -55,10 +68,14 @@ ul li {
   });
 
   socket.on('answer message', (data) => {
-    $('.ul').append('<li>'+data.msg+'</li>');
+    $('.ul').append('<li class="right">'+data.msg+'</li>');
   });
   socket.on('ask message', (data) => {
-    $('.ul').append('<li>'+data.msg+'</li>');
+    $('.ul').append('<li class="left">'+data.msg+'</li>');
+  });
+
+  socket.on('get recent message', (list) => {
+    console.log(list);
   });
 
 })();

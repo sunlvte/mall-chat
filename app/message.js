@@ -6,6 +6,7 @@
 const connection = require('./services/connection');
 const message = require('./services/message');
 const service = require('./services/service');
+const chat = require('./services/chat');
 const config = service.config;
 const debug = service.debug(__filename);
 
@@ -26,23 +27,20 @@ module.exports = {
    *
    */
   async [config('message.answerMessage')](socket, data) {
-    if (!data.to) {
-      return;
-    }
-
-    message.sendAnswerMessage(socket.id, data);
-    message.sendAnswerMessage(data.to, data);
-
-    // @TODO 存储消息
+    await message.sendAnswerFromServiceToUser(socket, data);
   },
 
   /**
    * 用户发送新消息
    */
   async [config('message.askMessage')](socket, data) {
-    message.sendAskMessage(socket.id, data);
-
     await message.sendAskFromUserToService(socket, data);
   },
 
+  /**
+   * 获取最近聊天记录
+   */
+  async[config('message.getRecentMessage')](socket, data) {
+    await chat.getRecentMessage(socket, data);
+  },
 };

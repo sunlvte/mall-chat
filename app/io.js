@@ -3,7 +3,6 @@
  *
  * @author luoage@msn.cn
  */
-
 const socketIo = require('socket.io');
 const chat = require('./controller/io');
 const messageService = require('./services/message');
@@ -14,7 +13,6 @@ const querystring = require('querystring');
 const service = require('./services/service');
 const messages = require('./message');
 const debug = service.debug(__filename);
-
 
 const generate = {
 
@@ -52,7 +50,7 @@ const generate = {
         messages[msg].bind(this, socket, ...args)()
           .catch((e) => {
             socket.emit('destory');
-            debug('messages errors, destory the socket .');
+            debug('message error, destory the socket.');
             console.error(e);
           });
       });
@@ -76,7 +74,11 @@ module.exports.use = function(server) {
     const query = querystring.parse(reqUrl.query);
     const id = query._id || query.id;
 
-    return id || service.uniqueId('_sid_');
+    if (id) {
+      return [query.token, '_', id].join('');
+    }
+
+    return service.uniqueId('|_chat_|');
   };
 
   generate.init(io);
