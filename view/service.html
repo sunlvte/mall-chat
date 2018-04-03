@@ -30,7 +30,7 @@ ul li {
   const socket = io('/b', {
     path: '/chat',
     query: {
-      _id: '5abf93afef0c79d5e703e72b',
+      _id: '5ac3adc150aebd1f354f65af',
       token: 'alJO2V99Bw',
     },
     reconnection: true, // 重连
@@ -50,7 +50,7 @@ ul li {
 
     socket.emit('service message', idata, (result) => {
       console.log(result);
-      result.code === 0 && $('.ul').append('<li class="right">'+data.msg+'</li>');
+      result.code === 0 && $('.ul').append('<li class="right">'+result.data.msg+'</li>');
     });
   });
 
