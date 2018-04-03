@@ -55,7 +55,9 @@ ul li {
   });
 
   socket.on('connect', () => {
-    socket.emit('get recent message');
+    socket.emit('get recent message', {}, (result) => {
+      console.log(result);
+    });
   });
 
   socket.on('messages', (data) => {

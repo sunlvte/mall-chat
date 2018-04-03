@@ -49,13 +49,14 @@ module.exports = {
   /**
    * 获取最近聊天记录
    *
+   * @TODO data暂时未使用
    * @param socket
    * @param data
    * @param function cb
    * @return Promise
    */
-  async[config('message.getRecentMessage')](socket, data) {
-    await chat.getRecentMessage(socket, data);
+  async[config('message.getRecentMessage')](socket, data, cb) {
+    return await chat.getRecentMessage(socket, data, cb);
   },
 
 };
