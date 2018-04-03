@@ -35,7 +35,7 @@ app.use(async (ctx, next) => {
 
 // 配置
 render(app, {
-  root: path.join(process.cwd()),
+  root: path.join(process.cwd(), 'view'),
   extname: '.html',
   debug: process.env.NODE_ENV !== 'production'
 });

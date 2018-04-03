@@ -3,63 +3,57 @@
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="/chat/socket.io.js"></script>
-    <style lang="less">
-ul li {
-  list-style-type: none;
-}
-    </style>
+    <!--<style lang="less">-->
+<!--ul li {-->
+  <!--list-style-type: none;-->
+<!--}-->
+    <!--</style>-->
   </head>
   <body>
-    <div class="container" id="app">
-       <ul class="ul">
-         <li class="left">aaaaaaaaaa</li>
-       </ul>
-
-      <div>
-        <input type="text" class="form-control" id="input">
-      </div>
+    <div id="app">
     </div>
+    <script src="/src/main.js"></script>
     <script>
-(function() {
-  const socket = io('/a', {
-    path: '/chat',
-    query: {
-      token: 'alJO2V99Bw',
-    },
-    reconnection: true, // 重连
-    reconnectionAttempts: 20, // 尝试重连次数
-  });
-
-  const data = {};
-
-  $('#input').on('keyup', function(e) {
-    if (e.keyCode !== 13) {
-      return;
-    }
-
-    const message = $('#input').val();
-
-    data.msg = message;
-
-    socket.emit('user message', data, (result) => {
-      console.log(result);
-      result.code === 0 && $('.ul').append('<li class="right">'+data.msg+'</li>');
-    });
-  });
-
-  socket.on('error', (a, b, c) => {
-    console.log(a, b, c);
-  });
-  socket.on('destory', data => {
-    console.log('destory');
-    socket.destroy();
-  });
-
-  socket.on('answer message', (data) => {
-    $('.ul').append('<li class="left">'+data.msg+'</li>');
-  });
-
-})()
+//(function() {
+//  const socket = io('/a', {
+//    path: '/chat',
+//    query: {
+//      token: 'alJO2V99Bw',
+//    },
+//    reconnection: true, // 重连
+//    reconnectionAttempts: 20, // 尝试重连次数
+//  });
+//
+//  const data = {};
+//
+//  $('#input').on('keyup', function(e) {
+//    if (e.keyCode !== 13) {
+//      return;
+//    }
+//
+//    const message = $('#input').val();
+//
+//    data.msg = message;
+//
+//    socket.emit('user message', data, (result) => {
+//      console.log(result);
+//      result.code === 0 && $('.ul').append('<li class="right">'+data.msg+'</li>');
+//    });
+//  });
+//
+//  socket.on('error', (a, b, c) => {
+//    console.log(a, b, c);
+//  });
+//  socket.on('destory', data => {
+//    console.log('destory');
+//    socket.destroy();
+//  });
+//
+//  socket.on('answer message', (data) => {
+//    $('.ul').append('<li class="left">'+data.msg+'</li>');
+//  });
+//
+//})()
     </script>
   </body>
 </html>
