@@ -19,8 +19,8 @@ if (dotenv.error) {
 }
 
 // setting
-const server = app.listen(3000, () =>  {
-  debug('listen on port 3000');
+const server = app.listen(process.env.APP_PORT, () =>  {
+  debug('listen on port ' + process.env.APP_PORT);
 });
 
 // socket io
