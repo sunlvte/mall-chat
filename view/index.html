@@ -55,7 +55,7 @@ ul li {
     socket.destroy();
   });
 
-  socket.on('answer message', (data) => {
+  socket.on('service message', (data) => {
     $('.ul').append('<li class="left">'+data.msg+'</li>');
   });
 
