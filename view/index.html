@@ -25,7 +25,9 @@ ul li {
     path: '/chat',
     query: {
       token: 'alJO2V99Bw',
-    }
+    },
+    reconnection: true, // 重连
+    reconnectionAttempts: 20, // 尝试重连次数
   });
 
   const data = {};
