@@ -57,4 +57,5 @@ module.exports = {
   async[config('message.getRecentMessage')](socket, data) {
     await chat.getRecentMessage(socket, data);
   },
+
 };
