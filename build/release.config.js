@@ -1,6 +1,6 @@
 'use strict'
 /*
- webpack default config
+ webpack release config
  */
 const path = require('path');
 const webpack = require('webpack');

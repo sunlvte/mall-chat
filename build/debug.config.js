@@ -1,6 +1,6 @@
 'use strict'
 /*
- webpack default config
+ webpack debug config
  */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
