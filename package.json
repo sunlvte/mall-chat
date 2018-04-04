@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "./node_modules/.bin/webpack   --progress --config  build/webpack.config.js",
+    "watch": "./node_modules/.bin/webpack   --watch --progress --config  build/debug.config.js",
     "serve": "DEBUG=chat* node index.js",
-    "test": "./node_modules/mocha/bin/mocha test/*"
+    "test": "./node_modules/mocha/bin/mocha test/*",
+    "build": "./node_modules/.bin/webpack   --config  build/release.config.js"
   },
   "author": "luoage@msn.cn",
   "license": "none",
@@ -14,6 +15,7 @@
   "dependencies": {
     "art-template": "^4.12.2",
     "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "base64id": "^1.0.0",
     "debug": "^3.1.0",
     "dotenv": "^5.0.1",
@@ -35,16 +37,19 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-loader": "7.1.1",
     "babel-preset-env": "^1.6.1",
     "css-loader": "0.28.0",
     "element-theme-chalk": "2.2.1",
+    "extract-text-webpack-plugin": "3.0.0",
+    "html-webpack-plugin": "2.30.1",
     "less": "3.0.1",
     "less-loader": "4.0.6",
     "postcss-loader": "2.0.8",
     "url-loader": "0.5.8",
     "vue-loader": "13.3.0",
-    "webpack": "^3.6.0",
     "vue-style-loader": "3.0.1",
-    "vue-template-compiler": "2.5.2"
+    "vue-template-compiler": "2.5.2",
+    "webpack": "^3.6.0"
   }
 }

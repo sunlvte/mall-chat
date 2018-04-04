@@ -17,9 +17,9 @@ Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
 
-
-// 检测是否登录
+// 路由守卫
 router.beforeEach(({meta, path}, from, next) => {
+  console.log(path);
   next();
 });
 
