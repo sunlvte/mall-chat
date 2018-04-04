@@ -8,8 +8,12 @@ const router = new Router();
 
 // index
 router.get('/', action('app/controller/chat@index'));
-// service 
+// service
 router.get('/service', action('app/controller/chat@service'));
+
+// API
+// 企业数据写入
+router.post('/api/industry/insert', action('app/controller/api/industry@insert'));
 
 
 module.exports = router;
