@@ -9,7 +9,7 @@ const userModel = require('../models/user');
 const base64id = require('base64id');
 const debug = require('debug');
 
-module.exports.__proto__ = {
+module.exports.__proto__ = service = {
 
   /**
    * 加载方法
@@ -27,7 +27,7 @@ module.exports.__proto__ = {
       return new Promise(resolve => {
         resolve(require(path.resolve(process.cwd(), file + '.js'))[func](...args));
       }).catch(e => {
-        this.debug()('action errors');
+        service.debug()('action errors');
         console.error(e);
       });
     }
@@ -92,7 +92,7 @@ module.exports.__proto__ = {
    * @return function
    */
   debug(file) {
-    return debug('chat:' + path.relative(process.cwd(), file));
+    return debug('chat:' + path.relative(process.cwd(), file||''));
   },
 
   /**

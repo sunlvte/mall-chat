@@ -8,6 +8,8 @@ const path = require('path');
 const router = require('./app/router');
 const io = require('./app/io');
 const debug = require('debug')('chat:index');
+const koaBody = require('koa-body');
+
 const app = new Koa();
 
 if (process.cwd() !== __dirname) {
@@ -33,7 +35,11 @@ app.use(async (ctx, next) => {
   debug('time using: %d ms', +new Date() - time);
 });
 
+// static resources
 app.use(require('koa-static')('./dist'));
+
+// post parameters
+app.use(koaBody());
 
 // 配置
 render(app, {
