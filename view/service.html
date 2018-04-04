@@ -3,88 +3,9 @@
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="/chat/socket.io.js"></script>
-    <style lang="less">
-ul li {
-  list-style-type: none;
-}
-
-.left {
-  text-align: left;
-}
-.right{
-  text-align: right;
-}
-    </style>
   </head>
   <body>
-    <h1>service</h1>
-    <div class="container">
-       <ul class="ul">
-       </ul>
-
-      <div>
-        <input type="text" class="form-control" id="input">
-      </div>
-    </div>
-    <script>
-(function() {
-  const socket = io('/b', {
-    path: '/chat',
-    query: {
-      _id: '5ac3adc150aebd1f354f65af',
-      token: 'alJO2V99Bw',
-    },
-    reconnection: true, // 重连
-    reconnectionAttempts: 20, // 尝试重连次数
-  });
-  const idata = {};
-
-
-  $('#input').on('keyup', function(e) {
-    console.log(222);
-    if (e.keyCode !== 13) {
-      return;
-    }
-
-    const message = $('#input').val();
-
-    idata.msg = message;
-
-    socket.emit('service message', idata, (result) => {
-      console.log(result);
-      result.code === 0 && $('.ul').append('<li class="right">'+result.data.msg+'</li>');
-    });
-  });
-
-  socket.on('connect', () => {
-    socket.emit('get recent message', {}, (result) => {
-      console.log(result);
-    });
-  });
-
-  socket.on('messages', (data) => {
-    console.log(data);
-  });
-
-  socket.on('new user comes', data => {
-    console.log(data.to);
-    idata.to = data.to;
-  });
-
-  socket.on('destory', data => {
-    console.log('destory');
-    socket.destroy();
-  });
-
-  socket.on('user message', (data) => {
-    $('.ul').append('<li class="left">'+data.msg+'</li>');
-  });
-
-  socket.on('get recent message', (list) => {
-    console.log(list);
-  });
-
-})();
-    </script>
+    <div id="app"></div>
+    <script type="text/javascript" src="bundle.js"></script>
   </body>
 </html>

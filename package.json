@@ -7,7 +7,7 @@
     "watch": "./node_modules/.bin/webpack   --watch --progress --config  build/debug.config.js",
     "serve": "DEBUG=chat* node index.js",
     "test": "./node_modules/mocha/bin/mocha test/*",
-    "build": "./node_modules/.bin/webpack   --config  build/release.config.js"
+    "build": "./node_modules/.bin/webpack  --progress  --config  build/release.config.js"
   },
   "author": "luoage@msn.cn",
   "license": "none",

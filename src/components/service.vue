@@ -1,8 +1,7 @@
 <template>
   <div class="container" >
-    <h1>customer</h1>
+    <h1>service</h1>
     <ul class="ul">
-      <li class="left">aaaaaaaaaa</li>
       <li v-for="item in arr" :class="item.type">{{item.msg}}</li>
     </ul>
     <!--<router-link to="service">Home</router-link>-->
@@ -15,14 +14,15 @@
 <script>
 'use strict';
 
-  const socket = io('/a', {
-    path: '/chat',
-    query: {
-      token: 'alJO2V99Bw',
-    },
-    reconnection: true, // 重连
-    reconnectionAttempts: 20, // 尝试重连次数
-  });
+const socket = io('/b', {
+  path: '/chat',
+  query: {
+    _id: '5ac3adc150aebd1f354f65af',
+    token: 'alJO2V99Bw',
+  },
+  reconnection: true, // 重连
+  reconnectionAttempts: 20, // 尝试重连次数
+});
 
 
 export default {
@@ -36,22 +36,39 @@ export default {
     };
   },
   mounted () {
-    socket.on('error', (a, b, c) => {
-      console.log(a, b, c);
+    socket.on('connect', () => {
+      socket.emit('get recent message', {}, (result) => {
+        console.log(result);
+      });
     });
+
+    socket.on('messages', (data) => {
+      console.log(data);
+    });
+
+    socket.on('new user comes', data => {
+      console.log(data.to);
+      this.data.to = data.to;
+    });
+
     socket.on('destory', data => {
       console.log('destory');
       socket.destroy();
     });
-    socket.on('service message', (data) => {
+
+    socket.on('user message', (data) => {
       this.arr.push({msg:data.msg,type:'left'});
+    });
+
+    socket.on('get recent message', (list) => {
+      console.log(list);
     });
   },
   methods: {
     send () {
       this.data.msg = this.iptContent;
       this.iptContent = '';
-      socket.emit('user message', this.data, (result) => {
+      socket.emit('service message', this.data, (result) => {
         console.log(result);
         result.code === 0 && this.arr.push({msg:this.data.msg,type:'right'});
       });

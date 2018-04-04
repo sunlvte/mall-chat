@@ -1,0 +1,145 @@
+@import (reference) './variable.less';
+
+
+/* hack element-ui */
+.input.date input {
+  padding-left: 2em!important;
+}
+.el-table thead {
+  color: #000!important;
+  tr th {
+    font-weight: normal!important;
+  }
+}
+/* hack element-ui end */
+
+ul {
+  list-style-type: none;
+}
+
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
+.center {
+  text-align: center;
+}
+.user-select(@value) {
+  user-select: @value;
+}
+.font12 {
+  font-size: 12px;
+}
+.font14 {
+  font-size: 14px;
+}
+.font24{
+  font-size: 24px;
+}
+.font18{
+  font-size: 18px;
+}
+.fixed {
+  position: fixed;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.text-gray {
+  color: @gray;
+}
+.text-red {
+	color: @redColor;
+}
+.text-green {
+	color: @green;
+}
+.text-error {
+	color: @errorColor;
+}
+.text-success {
+	color: @successColor;
+}
+.tip-text-error {
+	color: @errorColor;
+}
+.tip-text-success {
+	color: @successColor;
+}
+.pointer {
+  cursor: pointer;
+}
+.inline-block {
+  display: inline-block;
+}
+.block {
+  display: block;
+}
+.none {
+  display: none;
+}
+.inline {
+  display: inline;
+}
+.border-radius (@value:3px){
+  border-radius: @value;
+}
+.required:before {
+  content: '*';
+  color: @redColor;
+  position: relative;
+  left: -1px;
+  top: 3px;
+}
+body{
+  margin: 0;
+}
+a{
+  text-decoration: none;
+}
+p{
+  margin: 0;
+  padding: 0;
+}
+
+h1,h2,h3,h4,h5,h6{
+  margin: 0;
+  padding: 0;
+}
+.color_blue{
+  color: #0bb3e4;
+}
+.color_gray {
+  color: #666;
+}
+.bold{
+  font-weight: bold;
+  font-size: 15px;
+}
+.indent{
+  text-indent: 20px;
+}
+.line-height{
+  line-height: 20px;
+}
+.under-line{
+  text-decoration: underline;
+}
+.fixed-i {
+  position: fixed !important;
+}
+[v-cloak] {
+  display: none;
+}
+
+//html,body{
+//  -moz-user-select: none;
+//  -khtml-user-select: none;
+//  user-select: none;
+//}
+

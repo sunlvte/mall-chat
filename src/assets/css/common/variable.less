@@ -1,0 +1,76 @@
+/**
+ * variable.less
+ */
+/*
+sipadmin
+ */
+@adminbg:#373d41;
+@adminbgLight:#4a5064;
+@adminLightFont:#aeb9c2;
+@adminhover:#2a2f32;
+@adminaqua:#00C1DE;
+@admingraybg:RGB(229, 232, 237);
+@adminbdr:1px solid #2a2f32;
+@adminContentBg:RGBA(229, 232, 237,.5);
+
+
+@green: green;
+@sidebar: 196px;
+@logoWidth: 110px;
+/*@blue: #2185D0;*/
+@blue: #4aa5f6;
+@textColor: #555;
+@deepBlue:#0067ff;
+@borderColor: rgba(34,36,38,.15);
+@primaryColor: @blue;
+@indexPurple:#7351ff;
+@indexBlue:#2e6eff;
+@grayBgColor: #f7f7f7;
+@bodyColor: @grayBgColor;
+@gray: #999;
+@lightGray:rgba(34,36,38,.15);
+@mixBlue:#85b7d9;
+@333:#333;
+@redColor: red;
+@errorColor: #9f3a38;
+@successColor: @green;
+@ccc:#ccc;
+@backgroudBlack:#303030;
+@white: #ffffff;
+@black:#303036;
+@666:#666666;
+@lineHeight:28px;
+@indent: 20px;
+@fontPF: "PingFang SC";
+@fontPFLight: "PingFangSC-Light";
+@yellow: #fff7cc;
+@orange: orange;
+/* app制作右侧边框宽度 */
+@createRightWidth: 350px;
+
+/*iphone6 375*667*/
+@iphone6Width: 300px;
+@iphone6Height: @iphone6Width*667/375;
+
+/*iphone6 plus 414*736*/
+@iphone6PlusWidth: 320px;
+@iphone6PlusHeight: @iphone6PlusWidth*667/375;
+
+// @leftBarWidth: 180px;
+@topBarHeight: 50px;
+
+.load-image(@image) {
+	background: url("../../imgs/@{image}") no-repeat no-repeat transparent;
+}
+.main_slider(){
+  // 侧边栏大小改变
+  .main.big{
+    left: 180px;
+    width:calc(~'100% - 180px');
+    transition: width .05s ease;
+  }
+  .main.small{
+    width:calc(~'100% - 50px');
+    left: 50px;
+  }
+}
