@@ -9,7 +9,7 @@ yarn install;
 
 yarn global add pm2;
 
-npm run serve;
+yarn run serve;
 ```
 
 ## What is pm2 ?
