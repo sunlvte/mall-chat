@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "DEBUG=chat* node index.js",
+    "serve": "DEBUG=chat* pm2 start index.js --watch app/",
     "test": "./node_modules/mocha/bin/mocha test/*"
   },
   "author": "luoage@msn.cn",
