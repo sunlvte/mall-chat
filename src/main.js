@@ -3,14 +3,13 @@
 import 'babel-polyfill';
 import Vue from 'vue';
 import App from './app.vue';
-import jQuery from 'jquery';
 import router from './router/index';
 import store from './store/';
 import ElementUI from 'element-ui';
+import axios from './util/http'
 
-
-window.jQuery = jQuery;
-window.$ = jQuery;
+console.log(qs);
+Vue.prototype.$axios = axios;
 window.Promise = Promise;
 
 Vue.config.productionTip = false;

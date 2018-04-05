@@ -9,7 +9,7 @@
       <input type="text" class="form-control" @keyup.13="send($event)" v-model="iptContent">
     </div>
   </div>
-</template>show
+</template>
 
 <script>
 'use strict';

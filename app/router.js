@@ -7,9 +7,9 @@ const router = new Router();
 
 
 // index
-router.get('/', action('app/controller/chat@index'));
+router.get('/customer', action('app/controller/chat@customer'));
 // service
-router.get('/service', action('app/controller/chat@service'));
+router.get('/index', action('app/controller/chat@index'));
 
 // API
 // 企业数据写入

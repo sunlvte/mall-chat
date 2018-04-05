@@ -7,7 +7,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import App from '../app.vue';
-import Index from '../components/index.vue';
 
 Vue.use(Router);
 
@@ -16,7 +15,7 @@ const routes = {
   path: '/',
   component: App,
   children: [
-    { path: '/', component: Index },
+    { path: '/index',redirect:'/service'},
     { path: '/service', meta: { title: '服务端' }, component: view('service') },
     { path: '/*', meta: { title: 'page not found' }, component: view('404')} // 页面不存在, 只能放在路由最后面
   ]

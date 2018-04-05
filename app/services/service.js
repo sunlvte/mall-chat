@@ -22,7 +22,8 @@ module.exports.__proto__ = service = {
    */
   action(name) {
     const [file, func] = name.split('@');
-
+    console.log(file);
+    console.log(func);
     return (...args) => {
       return new Promise(resolve => {
         resolve(require(path.resolve(process.cwd(), file + '.js'))[func](...args));

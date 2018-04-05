@@ -10,8 +10,8 @@ module.exports = {
     await ctx.render('index');
   },
 
-  async service(ctx, next) {
-    await ctx.render('service');
+  async customer(ctx, next) {
+    await ctx.render('customer');
   },
 
 };
