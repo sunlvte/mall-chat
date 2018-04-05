@@ -9,8 +9,9 @@ const industry = require('../../services/industry');
 module.exports = new class extends Controller {
 
   async insert(ctx) {
-    console.log(ctx.request.body);
-    // ctx.body = await industry.insert();
+    const body = ctx.request.body;
+
+    ctx.body = await industry.insert();
   }
 
 };

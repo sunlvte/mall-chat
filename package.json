@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "watch": "./node_modules/.bin/webpack   --watch --progress --config  build/debug.config.js",
-    "serve": "DEBUG=chat* node index.js",
     "test": "./node_modules/mocha/bin/mocha test/*",
     "build": "./node_modules/.bin/webpack  --progress  --config  build/release.config.js"
+    "serve": "DEBUG=chat* pm2 start index.js --watch app/",
   },
   "author": "luoage@msn.cn",
   "license": "none",
